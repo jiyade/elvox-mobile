@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native"
 import axios from "axios"
 import Constants from "expo-constants"
-import { useColorScheme } from "nativewind"
 import { useState } from "react"
-import { Alert, Pressable, Text, TextInput, View } from "react-native"
-import useAuthStore from "../stores/authStore"
+import { Pressable, Text, View } from "react-native"
+import { useAuthStore } from "../stores"
+import toast from "../utils/toast"
 import validateEmailOrPhone from "../utils/validateEmailOrPhone"
+import Input from "./Input"
 
 const { API_URL } = Constants.expoConfig.extra
 
@@ -16,10 +17,6 @@ const LoginForm = ({ setIsLoading }) => {
 
     const navigation = useNavigation()
     const { login } = useAuthStore()
-
-    const { colorScheme } = useColorScheme()
-
-    const placeholderColor = colorScheme === "dark" ? "#6b6b7b" : "#888794"
 
     const validate = () => {
         const newErrors = { eop: "", password: "" }
@@ -51,15 +48,13 @@ const LoginForm = ({ setIsLoading }) => {
             const data = { eop, password }
             const res = await axios.post(`${API_URL}/auth/login`, data)
             const user = await res.data
-            console.log(user)
             if (user) {
                 login(user)
                 navigation.replace("Dashboard")
-                Alert.alert("Success", "Welcome back!")
+                toast.success("Welcome back!")
             }
         } catch (err) {
-            console.log(err)
-            Alert.alert("Error", err.response.data.error)
+            toast.error(err.response.data.error)
         } finally {
             setIsLoading(false)
         }
@@ -71,13 +66,10 @@ const LoginForm = ({ setIsLoading }) => {
                 <Text className='text-primary-light dark:text-primary-dark'>
                     Email or Phone
                 </Text>
-                <TextInput
+                <Input
                     value={eop}
                     onChangeText={setEop}
                     placeholder='Enter your email or phone'
-                    placeholderTextColor={placeholderColor}
-                    className='w-full h-11 px-3 rounded-md bg-field-light dark:bg-field-dark text-primary-light dark:text-primary-dark'
-                    keyboardType='email-address'
                     autoCapitalize='none'
                 />
                 {errors.eop ? (
@@ -91,13 +83,12 @@ const LoginForm = ({ setIsLoading }) => {
                 <Text className='text-primary-light dark:text-primary-dark'>
                     Password
                 </Text>
-                <TextInput
+                <Input
                     value={password}
                     onChangeText={setPassword}
                     placeholder='Enter your password'
-                    placeholderTextColor={placeholderColor}
-                    secureTextEntry
-                    className='w-full h-11 px-3 rounded-md bg-field-light dark:bg-field-dark text-primary-light dark:text-primary-dark'
+                    autoCapitalize='none'
+                    secureTextEntry={true}
                 />
                 {errors.password ? (
                     <Text className='text-xs text-red-500 mt-1 font-medium'>

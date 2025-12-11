@@ -5,6 +5,7 @@ import * as SplashScreen from "expo-splash-screen"
 import { useCallback, useEffect } from "react"
 import { View } from "react-native"
 import "./global.css"
+import Toaster from "./src/components/Toaster"
 import DashboardScreen from "./src/screens/DashboardScreen"
 import LoginScreen from "./src/screens/LoginScreen"
 
@@ -27,22 +28,25 @@ export default function App() {
     if (!fontsLoaded) return null
 
     return (
-        <View
-            className='flex-1 font-inter'
-            onLayout={onLayoutRootView}
-        >
-            <NavigationContainer>
-                <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen
-                        name='Login'
-                        component={LoginScreen}
-                    />
-                    <Stack.Screen
-                        name='Dashboard'
-                        component={DashboardScreen}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </View>
+        <>
+            <View
+                className='flex-1 font-inter'
+                onLayout={onLayoutRootView}
+            >
+                <NavigationContainer>
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        <Stack.Screen
+                            name='Login'
+                            component={LoginScreen}
+                        />
+                        <Stack.Screen
+                            name='Dashboard'
+                            component={DashboardScreen}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </View>
+            <Toaster />
+        </>
     )
 }
