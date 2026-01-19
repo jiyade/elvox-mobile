@@ -6,12 +6,38 @@ import { useCallback, useEffect } from "react"
 import { View } from "react-native"
 import "./global.css"
 import Toaster from "./src/components/Toaster"
-import DashboardScreen from "./src/screens/DashboardScreen"
-import LoginScreen from "./src/screens/LoginScreen"
+import Dashboard from "./src/screens/Dashboard"
+import Login from "./src/screens/Login"
+import Signup from "./src/screens/Signup"
+import { useAuthStore } from "./src/stores"
 
 const Stack = createNativeStackNavigator()
 
+const AuthStack = () => (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+            name='Login'
+            component={Login}
+        />
+        <Stack.Screen
+            name='Signup'
+            component={Signup}
+        />
+    </Stack.Navigator>
+)
+
+const ProtectedStack = () => (
+    <Stack.Navigator>
+        <Stack.Screen
+            name='Dashboard'
+            component={Dashboard}
+        />
+    </Stack.Navigator>
+)
+
 export default function App() {
+    const { isAuthenticated, fetchMe } = useAuthStore()
+
     const [fontsLoaded] = Font.useFonts({
         Inter: require("./assets/fonts/Inter-Variable.ttf"),
         Sansation: require("./assets/fonts/Sansation-Regular.ttf")
@@ -19,7 +45,8 @@ export default function App() {
 
     useEffect(() => {
         SplashScreen.preventAutoHideAsync().catch(() => {})
-    }, [])
+        fetchMe()
+    }, [fetchMe])
 
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) await SplashScreen.hideAsync()
@@ -34,16 +61,7 @@ export default function App() {
                 onLayout={onLayoutRootView}
             >
                 <NavigationContainer>
-                    <Stack.Navigator screenOptions={{ headerShown: false }}>
-                        <Stack.Screen
-                            name='Login'
-                            component={LoginScreen}
-                        />
-                        <Stack.Screen
-                            name='Dashboard'
-                            component={DashboardScreen}
-                        />
-                    </Stack.Navigator>
+                    {isAuthenticated ? <ProtectedStack /> : <AuthStack />}
                 </NavigationContainer>
             </View>
             <Toaster />

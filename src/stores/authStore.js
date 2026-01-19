@@ -1,13 +1,35 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { create } from "zustand"
+import api from "../api/api"
 
 const useAuthStore = create((set) => ({
     isAuthenticated: false,
     user: null,
-    token: null,
+    isUserLoaded: false,
 
-    login: (user, token) => set({ user, token, isAuthenticated: true }),
+    login: (user) => set({ user, isAuthenticated: true, isUserLoaded: true }),
+    logout: async () => {
+        await AsyncStorage.removeItem("token")
+        set({ user: null, isAuthenticated: false, isUserLoaded: true })
+    },
+    fetchMe: async () => {
+        try {
+            const res = await api.get("/auth/me")
+            const user = res.data
 
-    logout: () => set({ user: null, token: null, isAuthenticated: false })
+            set({
+                user,
+                isAuthenticated: true,
+                isUserLoaded: true
+            })
+        } catch {
+            set({
+                user: null,
+                isAuthenticated: false,
+                isUserLoaded: true
+            })
+        }
+    }
 }))
 
 export default useAuthStore

@@ -15,7 +15,7 @@ const LoginScreen = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigation.navigate("Home")
+            navigation.navigate("Dashboard")
         }
     }, [isAuthenticated, navigation])
 

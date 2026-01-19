@@ -1,14 +1,12 @@
 import { useNavigation } from "@react-navigation/native"
-import axios from "axios"
-import Constants from "expo-constants"
 import { useState } from "react"
 import { Pressable, Text, View } from "react-native"
 import { useAuthStore } from "../stores"
 import toast from "../utils/toast"
 import validateEmailOrPhone from "../utils/validateEmailOrPhone"
 import Input from "./Input"
-
-const { API_URL } = Constants.expoConfig.extra
+import api from "../api/api"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const LoginForm = ({ setIsLoading }) => {
     const [eop, setEop] = useState("")
@@ -46,15 +44,16 @@ const LoginForm = ({ setIsLoading }) => {
         try {
             setIsLoading(true)
             const data = { eop, password }
-            const res = await axios.post(`${API_URL}/auth/login`, data)
-            const user = await res.data
-            if (user) {
+            const res = await api.post("/auth/login", data)
+            const { user, token } = await res.data
+            if (user && token) {
                 login(user)
+                await AsyncStorage.setItem("token", token)
                 navigation.replace("Dashboard")
                 toast.success("Welcome back!")
             }
         } catch (err) {
-            toast.error(err.response.data.error)
+            if (err.response) toast.error(err.response?.data?.error)
         } finally {
             setIsLoading(false)
         }
