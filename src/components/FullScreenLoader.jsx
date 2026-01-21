@@ -1,23 +1,61 @@
-import { View } from "react-native"
-import Loader from "./Loader"
+import {
+    View,
+    StyleSheet,
+    Animated,
+    Easing,
+    useColorScheme
+} from "react-native"
+import { useEffect, useRef } from "react"
 
-const FullScreenLoader = ({ suspense }) => {
+export default function FullScreenLoader() {
+    const scheme = useColorScheme()
+    const isDark = scheme === "dark"
+
+    const rotateAnim = useRef(new Animated.Value(0)).current
+
+    useEffect(() => {
+        Animated.loop(
+            Animated.timing(rotateAnim, {
+                toValue: 1,
+                duration: 1200,
+                easing: Easing.linear,
+                useNativeDriver: true
+            })
+        ).start()
+    }, [rotateAnim])
+
+    const rotate = rotateAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["0deg", "360deg"]
+    })
+
     return (
         <View
-            className={`
-                absolute inset-0 z-50 
-                flex justify-center items-center
-                ${
-                    suspense
-                        ? "bg-bg-light dark:bg-bg-dark"
-                        : "bg-bg-light/70 dark:bg-bg-dark/70"
+            style={[
+                styles.overlay,
+                {
+                    backgroundColor: isDark ? "#000000" : "#f7f7f7"
                 }
-            `}
-            style={{ height: "100%", width: "100%" }}
+            ]}
         >
-            <Loader />
+            <Animated.Image
+                source={require("../../assets/images/logo.png")}
+                style={[styles.logo, { transform: [{ rotate }] }]}
+                resizeMode='contain'
+            />
         </View>
     )
 }
 
-export default FullScreenLoader
+const styles = StyleSheet.create({
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        zIndex: 50,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    logo: {
+        width: 50,
+        height: 50
+    }
+})
