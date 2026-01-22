@@ -1,29 +1,29 @@
 {
-  "project_info": {
-    "project_number": "788217672760",
-    "project_id": "elvox-mobile",
-    "storage_bucket": "elvox-mobile.firebasestorage.app"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:788217672760:android:e07c4f4430e825118e62cd",
-        "android_client_info": {
-          "package_name": "com.elvox.app"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
+    "project_info": {
+        "project_number": "788217672760",
+        "project_id": "elvox-mobile",
+        "storage_bucket": "elvox-mobile.firebasestorage.app"
+    },
+    "client": [
         {
-          "current_key": "AIzaSyBwzqCyDq_U6SrudhACs-2xmKkMiVAK4Ys"
+            "client_info": {
+                "mobilesdk_app_id": "1:788217672760:android:e07c4f4430e825118e62cd",
+                "android_client_info": {
+                    "package_name": "com.elvox.app"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyBwzqCyDq_U6SrudhACs-2xmKkMiVAK4Ys"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
+    ],
+    "configuration_version": "1"
 }

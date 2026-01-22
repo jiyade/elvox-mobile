@@ -72,7 +72,7 @@ const App = () => {
     useEffect(() => {
         ;(async () => {
             const token = await getExpoPushToken()
-            setPushToken(token || "ExponentPushToken[AbCdEfGhIjKlMnOpQrStUv]")
+            setPushToken(token)
         })()
     }, [])
 

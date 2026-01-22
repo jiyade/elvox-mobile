@@ -1,53 +1,54 @@
 {
-    "expo": {
-        "name": "Elvox",
-        "slug": "elvox",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/images/icon.png",
-        "scheme": "elvoxmobile",
-        "userInterfaceStyle": "automatic",
-        "newArchEnabled": true,
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "com.elvox.app"
-        },
-        "splash": {
-            "image": "./assets/images/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#000000"
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/images/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
-            },
-            "package": "com.elvox.app",
-            "edgeToEdgeEnabled": true,
-            "predictiveBackGestureEnabled": false,
-            "googleServicesFile": "./google-services.json"
-        },
-        "web": {
-            "output": "single",
-            "bundler": "metro"
-        },
-        "experiments": {
-            "reactCompiler": true
-        },
-        "extra": {
-            "eas": {
-                "projectId": "e76bb013-8cec-441b-9fbb-a7210cb77957"
-            }
-        },
-        "plugins": [
-            [
-                "expo-notifications",
-                {
-                    "icon": "./assets/images/notification-icon.png",
-                    "color": "#765ac1"
-                }
-            ]
-        ],
-        "owner": "jiyade"
-    }
+  "expo": {
+    "name": "Elvox",
+    "slug": "elvox",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "elvoxmobile",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.elvox.app"
+    },
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.elvox.app",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "output": "single",
+      "bundler": "metro"
+    },
+    "experiments": {
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e76bb013-8cec-441b-9fbb-a7210cb77957"
+      }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification-icon.png",
+          "color": "#765ac1"
+        }
+      ],
+      "expo-font"
+    ],
+    "owner": "jiyade"
+  }
 }
