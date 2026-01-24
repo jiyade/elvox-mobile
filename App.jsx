@@ -185,7 +185,7 @@ const App = () => {
                         { color: isDark ? "#71717b" : "#6b6b7b" }
                     ]}
                 >
-                    Elvox requires an active internet connection.
+                    Elvox requires an active internet connection
                 </Text>
 
                 <Pressable
